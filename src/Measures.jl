@@ -1,10 +1,12 @@
 
 module Measures
 
+export Measure, Length, mm, cm, inch, pt
+
 abstract Measure
 
-immutable Length{unit} <: Measure
-    value::Float64
+immutable Length{U, T} <: Measure
+    value::T
 end
 
 abstract MeasureOp{n} <: Measure
@@ -65,13 +67,13 @@ Base.(:*)(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
 Base.max(a::Measure, b::Measure) = Max(a, b)
 
-const mm   = Length{:mm}(1.0)
-const cm   = Length{:mm}(10.0)
-const inch = Length{:mm}(25.4)
+const mm   = Length{:mm, Float64}(1.0)
+const cm   = Length{:mm, Float64}(10.0)
+const inch = Length{:mm, Float64}(25.4)
 const pt   = inch/72.0
 
-const w    = Length{:w}(1.0)
-const h    = Length{:h}(1.0)
+const w    = Length{:w, Float64}(1.0)
+const h    = Length{:h, Float64}(1.0)
 #const d    = Length{:d}(1.0)
 
 # Higher-order measures
