@@ -54,16 +54,16 @@ Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
 iszero(x::Length) = x.value == 0.0
 iszero(x::Measure) = false
 
-+(a::Measure, b::Measure) = iszero(a) ? b : iszero(b) ? a : Add(a, b)
--(a::Measure) = Neg(a)
--(a::Neg) = a.value
--(a::Measure, b::Measure) = Add(a, -b)
--{T <: Length}(a::T, b::T) = T(a.value - b.value)
-/(a::Measure, b::Number) = Div(a, b)
-*(a::Measure, b::Number) = Mul(a, b)
-*(a::Number, b::Measure) = Mul(b, a)
-min(a::Measure, b::Measure) = Min(a, b)
-max(a::Measure, b::Measure) = Max(a, b)
+Base.(:+)(a::Measure, b::Measure) = iszero(a) ? b : iszero(b) ? a : Add(a, b)
+Base.(:-)(a::Measure) = Neg(a)
+Base.(:-)(a::Neg) = a.value
+Base.(:-)(a::Measure, b::Measure) = Add(a, -b)
+Base.(:-){T <: Length}(a::T, b::T) = T(a.value - b.value)
+Base.(:/)(a::Measure, b::Number) = Div(a, b)
+Base.(:*)(a::Measure, b::Number) = Mul(a, b)
+Base.(:*)(a::Number, b::Measure) = Mul(b, a)
+Base.min(a::Measure, b::Measure) = Min(a, b)
+Base.max(a::Measure, b::Measure) = Max(a, b)
 
 const mm   = Length{:mm}(1.0)
 const cm   = Length{:mm}(10.0)
@@ -86,11 +86,11 @@ Base.zero(::Type{Point}) = Point()
 isabsolute{N}(::Point{N, Length{:mm}}) = true
 isabsolute(::Point) = false
 
-+(a::Point, b::Point)  = map(+, a.x, b.x)
--(a::Point, b::Point)  = map(-, a.x, b.x)
-/(a::Point, b::Number) = map(x -> x/b, a.x)
-*(a::Point, b::Number) = map(x -> x*b, a.x)
-*(a::Number, b::Point) = b*a
+Base.(:+)(a::Point, b::Point)  = map(+, a.x, b.x)
+Base.(:-)(a::Point, b::Point)  = map(-, a.x, b.x)
+Base.(:/)(a::Point, b::Number) = map(x -> x/b, a.x)
+Base.(:*)(a::Point, b::Number) = map(x -> x*b, a.x)
+Base.(:*)(a::Number, b::Point) = b*a
 
 immutable BoundingBox{N, X, A}
     x0::Point{N, X}
