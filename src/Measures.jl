@@ -136,12 +136,14 @@ resolve(box::AbsoluteBox, p::Point) =
 resolve(outer::AbsoluteBox, box::BoundingBox) =
     BoundingBox(Point(resolve(outer, box.x0)), map(x -> resolve(outer, x)*mm, box.a))
 
-# E.g.
-println(resolve(BoundingBox(10cm, 6cm), .4w+.5h-20mm))
-println(resolve(BoundingBox(10cm, 6cm), Point(.5w, .5h)))
-println(resolve(BoundingBox(10cm, 6cm), BoundingBox(.25w, .25h, .5w, .5h)))
+
+Base.show{U}(out::IO, x::Length{U}) = print(out, x.value, U)
+Base.show(out::IO, x::Neg) = print(out, "-", x.a)
+Base.show(out::IO, x::Add) = print(out, x.a, " + ", x.b)
+Base.show(out::IO, x::Min) = print(out, "min(", x.a, ", ", x.b, ")")
+Base.show(out::IO, x::Min) = print(out, "max(", x.a, ", ", x.b, ")")
+Base.show(out::IO, x::Div) = print(out,  x.a, " / ", x.b)
+Base.show(out::IO, x::Mul) = print(out,  x.a, " * ", x.b)
 
 
-end
-
-
+end # module Measures
