@@ -2,7 +2,7 @@
 module Measures
 
 export Measure, Length, AbsoluteLength, BoundingBox, AbsoluteBox, Absolute2DBox,
-       Point, AbsolutePoint, resolve, mm, cm, inch, pt
+       Vec, AbsoluteVec, resolve, mm, cm, inch, pt
 
 abstract Measure
 

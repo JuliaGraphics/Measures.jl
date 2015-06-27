@@ -1,18 +1,18 @@
 
 
-immutable BoundingBox{P1 <: Point, P2 <: Point}
+immutable BoundingBox{P1 <: Vec, P2 <: Vec}
     x0::P1
     a::P2
 end
 
-BoundingBox{P <: Point, T <: Measure}(x0::P, width::T, height::T) =
-    BoundingBox{P, Tuple{T, T}}(x0, (width, height))
+BoundingBox{P <: Vec, T1 <: Measure, T2 <: Measure}(x0::P, width::T1, height::T2) =
+    BoundingBox{P, Tuple{T1, T2}}(x0, (width, height))
 
-#BoundingBox{X}(x0::Point{2, X}, width::Measure, height::Measure) =
+#BoundingBox{X}(x0::Vec{2, X}, width::Measure, height::Measure) =
     #BoundingBox{2, X, Measure}(x0, (width, height))
 
 BoundingBox(x0::Measure, y0::Measure, width::Measure, height::Measure) =
-    BoundingBox(Point(x0, y0), width, height)
+    BoundingBox((x0, y0), width, height)
 
 BoundingBox() = BoundingBox(0mm, 0mm, 1w, 1h)
 BoundingBox(width, height) = BoundingBox(0mm, 0mm, width, height)
@@ -25,6 +25,3 @@ typealias Absolute2DBox    AbsoluteBox{Tuple{AbsoluteLength, AbsoluteLength}}
 
 width(x::BoundingBox)  = x.a[1]
 height(x::BoundingBox) = x.a[2]
-
-
-

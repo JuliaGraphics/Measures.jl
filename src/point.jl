@@ -6,24 +6,24 @@
 #typealias Point2D Tuple{Measure, Measure}
 #typealias Point3D Tuple{Measure, Measure, Measure}
 
-typealias Point{N} NTuple{N, Measure}
-typealias Point2D Point{2}
-typealias Point3D Point{3}
+typealias Vec{N} NTuple{N, Measure}
+typealias Vec2D Vec{2}
+typealias Vec3D Vec{3}
 
-isabsolute(p::Point) = false
+isabsolute(p::Vec) = false
 isabsolute{N}(p::NTuple{N, AbsoluteLength}) = true
 
-#Point{T <: Length}(x::T, y::T) = (x, y)
-#Point(x::Measure, y::Measure) = Point{2, Measure}((x, y))
-#Point() = Point(0mm, 0mm)
+#Vec{T <: Length}(x::T, y::T) = (x, y)
+#Vec(x::Measure, y::Measure) = Vec{2, Measure}((x, y))
+#Vec() = Vec(0mm, 0mm)
 
-typealias AbsolutePoint{N} NTuple{N, Length{:mm, Float64}}
+typealias AbsoluteVec{N} NTuple{N, Length{:mm, Float64}}
 
-#Base.zero(::Type{Point}) = Point()
+#Base.zero(::Type{Vec}) = Vec()
 
-Base.(:+)(a::Point, b::Point)  = map(+, a.x, b.x)
-Base.(:-)(a::Point, b::Point)  = map(-, a.x, b.x)
-Base.(:/)(a::Point, b::Number) = map(x -> x/b, a.x)
-Base.(:*)(a::Point, b::Number) = map(x -> x*b, a.x)
-Base.(:*)(a::Number, b::Point) = b*a
+Base.(:+)(a::Vec, b::Vec)  = map(+, a, b)
+Base.(:-)(a::Vec, b::Vec)  = map(-, a, b)
+Base.(:/)(a::Vec, b::Number) = map(x -> x/b, a)
+Base.(:*)(a::Vec, b::Number) = map(x -> x*b, a)
+Base.(:*)(a::Number, b::Vec) = b*a
 
