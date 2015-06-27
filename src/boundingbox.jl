@@ -1,15 +1,15 @@
 
 
-immutable BoundingBox{N, X, A}
-    x0::Point{N, X}
-    a::NTuple{N, A}
+immutable BoundingBox{P1 <: Point, P2 <: Point}
+    x0::P1
+    a::P2
 end
 
-BoundingBox{X, T <: Length}(x0::Point{2, X}, width::T, height::T) =
-    BoundingBox{2, X, T}(x0, (width, height))
+BoundingBox{P <: Point, T <: Measure}(x0::P, width::T, height::T) =
+    BoundingBox{P, Tuple{T, T}}(x0, (width, height))
 
-BoundingBox{X}(x0::Point{2, X}, width::Measure, height::Measure) =
-    BoundingBox{2, X, Measure}(x0, (width, height))
+#BoundingBox{X}(x0::Point{2, X}, width::Measure, height::Measure) =
+    #BoundingBox{2, X, Measure}(x0, (width, height))
 
 BoundingBox(x0::Measure, y0::Measure, width::Measure, height::Measure) =
     BoundingBox(Point(x0, y0), width, height)
@@ -17,11 +17,11 @@ BoundingBox(x0::Measure, y0::Measure, width::Measure, height::Measure) =
 BoundingBox() = BoundingBox(0mm, 0mm, 1w, 1h)
 BoundingBox(width, height) = BoundingBox(0mm, 0mm, width, height)
 
-isabsolute{N}(::BoundingBox{N, Length{:mm}, Length{:mm}}) = true
-isabsolute(::BoundingBox) = false
+isabsolute{P1, P2}(b::BoundingBox{P1, P2}) = isabsolute(b.x0) && isabsolute(b.a)
 
-typealias AbsoluteBox{N}   BoundingBox{N, Length{:mm, Float64}, Length{:mm, Float64}}
-typealias Absolute2DBox    AbsoluteBox{2}
+typealias AbsoluteBox{N}   BoundingBox{NTuple{N, Length{:mm, Float64}},
+                                       NTuple{N, Length{:mm, Float64}}}
+typealias Absolute2DBox    AbsoluteBox{Tuple{AbsoluteLength, AbsoluteLength}}
 
 width(x::BoundingBox)  = x.a[1]
 height(x::BoundingBox) = x.a[2]

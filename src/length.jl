@@ -3,15 +3,7 @@ immutable Length{U, T} <: Measure
     value::T
 end
 
-
-const mm   = Length{:mm, Float64}(1.0)
-const cm   = Length{:mm, Float64}(10.0)
-const inch = Length{:mm, Float64}(25.4)
-const pt   = inch/72.0
-
-const w    = Length{:w, Float64}(1.0)
-const h    = Length{:h, Float64}(1.0)
-#const d    = Length{:d}(1.0)
+typealias AbsoluteLength Length{:mm, Float64}
 
 
 # Operations
@@ -27,5 +19,19 @@ Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
 Base.(:-){T <: Length}(a::T, b::T) = T(a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
+
+
+# Constants
+# ---------
+
+const mm   = AbsoluteLength(1.0)
+const cm   = AbsoluteLength(10.0)
+const inch = AbsoluteLength(25.4)
+const pt   = inch/72.0
+
+const w    = Length{:w, Float64}(1.0)
+const h    = Length{:h, Float64}(1.0)
+#const d    = Length{:d}(1.0)
+
 
 

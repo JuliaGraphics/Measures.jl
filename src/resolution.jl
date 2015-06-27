@@ -2,9 +2,9 @@
 # Length
 # ------
 
-resolve(box::AbsoluteBox, x::Length{:mm}) = x.value
-resolve(box::AbsoluteBox, x::Length{:w})  = width(box).value * x.value
-resolve(box::AbsoluteBox, x::Length{:h})  = height(box).value * x.value
+resolve(box::AbsoluteBox, x::Length{:mm}) = x
+resolve(box::AbsoluteBox, x::Length{:w})  = width(box).value * x.value * mm
+resolve(box::AbsoluteBox, x::Length{:h})  = height(box).value * x.value * mm
 #resolve(box::AbsoluteBox, x::Length{:d}) = depth(box).value * x.value
 
 
