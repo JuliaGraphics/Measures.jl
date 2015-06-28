@@ -19,5 +19,5 @@ resolve(box::AbsoluteBox, x::Min) = min(resolve(box, x.a), resolve(box, x.b))
 resolve(box::AbsoluteBox, x::Max) = max(resolve(box, x.a), resolve(box, x.b))
 resolve(box::AbsoluteBox, p::Vec) = map(x -> resolve(box, x), p) + box.x0
 resolve(outer::AbsoluteBox, box::BoundingBox) =
-    BoundingBox(resolve(outer, box.x0), map(x -> resolve(outer, x)*mm, box.a))
+    BoundingBox(resolve(outer, box.x0), map(x -> resolve(outer, x), box.a))
 
