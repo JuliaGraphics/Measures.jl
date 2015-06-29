@@ -48,4 +48,3 @@ Base.(:*)(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
 Base.max(a::Measure, b::Measure) = Max(a, b)
 
-

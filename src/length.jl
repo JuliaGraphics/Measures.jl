@@ -10,6 +10,9 @@ typealias AbsoluteLength Length{:mm, Float64}
 # ----------
 
 Add{P <: Length}(x::P, y::P) = P(x.value + y.value)
+Add{P <: Length, Q<:Length}(x::P, y::Q) = Add{P, Q}(x, y)
+Add(x::Measure, y::Measure) = Add{Measure, Measure}(x, y)
+
 Neg{T <: Length}(x::T) = T(-x.value)
 Div{T <: Length}(a::T, b::Number) = T(a.value / b)
 Mul{T <: Length}(a::T, b::Number) = T(a.value * b)

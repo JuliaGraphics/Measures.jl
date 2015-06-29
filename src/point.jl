@@ -7,8 +7,8 @@
 #typealias Point3D Tuple{Measure, Measure, Measure}
 
 typealias Vec{N} NTuple{N, Measure}
-typealias Vec2D Vec{2}
-typealias Vec3D Vec{3}
+typealias Vec2 Vec{2}
+typealias Vec3 Vec{3}
 
 isabsolute(p::Vec) = false
 isabsolute{N}(p::NTuple{N, AbsoluteLength}) = true
@@ -26,4 +26,9 @@ Base.(:-)(a::Vec, b::Vec)  = map(-, a, b)
 Base.(:/)(a::Vec, b::Number) = map(x -> x/b, a)
 Base.(:*)(a::Vec, b::Number) = map(x -> x*b, a)
 Base.(:*)(a::Number, b::Vec) = b*a
+
+
+@generated function Base.(:+){N}(a::Vec{N}, b::Vec{N})
+    Expr(:tuple, [:(a[$i] + b[$i]) for i=1:N]...)
+end
 
