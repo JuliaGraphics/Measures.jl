@@ -20,6 +20,7 @@ Mul{T <: Length}(a::T, b::Number) = T(a.value * b)
 Max{T <: Length}(a::T, b::T) = T(max(a.value, b.value))
 Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
 
+Base.(:+){P <: Length}(a::P, b::P) = Add(a, b)
 Base.(:-){T <: Length}(a::T, b::T) = T(a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
