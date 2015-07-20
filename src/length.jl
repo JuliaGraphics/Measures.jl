@@ -5,6 +5,9 @@ end
 
 typealias AbsoluteLength Length{:mm, Float64}
 
+Base.convert{u, T1 <: Number, T2 <: Number}(::Type{Length{u, T1}}, x::Length{u, T2}) =
+    Length{u, T1}(x.value)
+
 
 # Operations
 # ----------
@@ -40,6 +43,4 @@ const pt   = inch/72.0
 const w    = Length{:w, Float64}(1.0)
 const h    = Length{:h, Float64}(1.0)
 #const d    = Length{:d}(1.0)
-
-
 
