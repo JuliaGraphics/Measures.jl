@@ -15,6 +15,7 @@ Add(x::Measure, y::Measure) = Add{Measure, Measure}(x, y)
 
 Neg{T <: Length}(x::T) = T(-x.value)
 Div{T <: Length}(a::T, b::Number) = T(a.value / b)
+Div{T <: Length}(a::T, b::T) = a.value / b.value
 Mul{T <: Length}(a::T, b::Number) = T(a.value * b)
 Max{T <: Length}(a::T, b::T) = T(max(a.value, b.value))
 Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
@@ -22,6 +23,9 @@ Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
 Base.(:-){T <: Length}(a::T, b::T) = T(a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
+
+Base.abs{T <: Length}(a::T) = T(abs(a.value))
+Base.isless{T <: Length}(a::T, b::T) = a.value < b.value
 
 
 # Constants

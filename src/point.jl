@@ -18,6 +18,8 @@ isabsolute{N}(p::NTuple{N, AbsoluteLength}) = true
 #Vec() = Vec(0mm, 0mm)
 
 typealias AbsoluteVec{N} NTuple{N, Length{:mm, Float64}}
+typealias AbsoluteVec2 AbsoluteVec{2}
+typealias AbsoluteVec3 AbsoluteVec{3}
 
 #Base.zero(::Type{Vec}) = Vec()
 

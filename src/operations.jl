@@ -43,6 +43,7 @@ Base.(:-)(a::Measure) = Neg(a)
 Base.(:-)(a::Neg) = a.value
 Base.(:-)(a::Measure, b::Measure) = Add(a, -b)
 Base.(:/)(a::Measure, b::Number) = Div(a, b)
+Base.(:/){T <: Measure}(a::T, b::T) = Div(a, b)
 Base.(:*)(a::Measure, b::Number) = Mul(a, b)
 Base.(:*)(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
