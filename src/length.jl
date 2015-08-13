@@ -42,5 +42,4 @@ const pt   = inch/72.0
 
 const w    = Length{:w, Float64}(1.0)
 const h    = Length{:h, Float64}(1.0)
-#const d    = Length{:d}(1.0)
-
+const d    = Length{:d, Float64}(1.0)
