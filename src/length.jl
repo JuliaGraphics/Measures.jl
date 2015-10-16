@@ -1,35 +1,40 @@
 
+import Base.==
+
 immutable Length{U, T} <: Measure
     value::T
 end
+Length{T}(unit::Symbol, x::T) = Length{unit, T}(x)
 
 typealias AbsoluteLength Length{:mm, Float64}
 
 Base.convert{u, T1 <: Number, T2 <: Number}(::Type{Length{u, T1}}, x::Length{u, T2}) =
     Length{u, T1}(x.value)
 
+=={u}(x::Length{u}, y::Length{u}) = x.value == y.value
+Base.isequal{u}(x::Length{u}, y::Length{u}) = isequal(x.value, y.value)
+Base.hash{u}(x::Length{u}) = hash(x.value, hash(u))
 
 # Operations
 # ----------
 
-Add{P <: Length}(x::P, y::P) = P(x.value + y.value)
-Add{P <: Length, Q<:Length}(x::P, y::Q) = Add{P, Q}(x, y)
-Add(x::Measure, y::Measure) = Add{Measure, Measure}(x, y)
+# TODO: figure out if we actually need this:
+# Add{P <: Length, Q<:Length}(x::P, y::Q) = Add{P, Q}(x, y)
+# Add(x::Measure, y::Measure) = Add{Measure, Measure}(x, y)
 
 Neg{T <: Length}(x::T) = T(-x.value)
-Div{T <: Length}(a::T, b::Number) = T(a.value / b)
-Div{T <: Length}(a::T, b::T) = a.value / b.value
-Mul{T <: Length}(a::T, b::Number) = T(a.value * b)
-Max{T <: Length}(a::T, b::T) = T(max(a.value, b.value))
-Min{T <: Length}(a::T, b::T) = T(min(a.value, b.value))
+Div{u}(a::Length{u}, b::Number) = Length(u, a.value / b)
+Mul{u}(a::Length{u}, b::Number) = Length(u, a.value * b)
+Max{u}(a::Length{u}, b::Length{u}) = Length(u, max(a.value, b.value))
+Min{u}(a::Length{u}, b::Length{u}) = Length(u, min(a.value, b.value))
 
-Base.(:+){P <: Length}(a::P, b::P) = Add(a, b)
-Base.(:-){T <: Length}(a::T, b::T) = T(a.value - b.value)
+Base.(:+){u}(a::Length{u}, b::Length{u}) = Length(u, a.value + b.value)
+Base.(:-){u}(a::Length{u}, b::Length{u}) = Length(u, a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
 
 Base.abs{T <: Length}(a::T) = T(abs(a.value))
-Base.isless{T <: Length}(a::T, b::T) = a.value < b.value
+Base.isless{u}(a::Length{u}, b::Length{u}) = a.value < b.value
 
 
 # Constants
