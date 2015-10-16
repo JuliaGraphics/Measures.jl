@@ -1,13 +1,19 @@
 
+import Base.==
+
 immutable Length{U, T} <: Measure
     value::T
 end
+Length{T}(unit::Symbol, x::T) = Length{unit, T}(x)
 
 typealias AbsoluteLength Length{:mm, Float64}
 
 Base.convert{u, T1 <: Number, T2 <: Number}(::Type{Length{u, T1}}, x::Length{u, T2}) =
     Length{u, T1}(x.value)
 
+=={u}(x::Length{u}, y::Length{u}) = x.value == y.value
+Base.isequal{u}(x::Length{u}, y::Length{u}) = isequal(x.value, y.value)
+Base.hash{u}(x::Length{u}) = hash(x.value, hash(u))
 
 # Operations
 # ----------
