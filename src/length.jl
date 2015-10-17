@@ -24,6 +24,7 @@ Base.hash{u}(x::Length{u}) = hash(x.value, hash(u))
 
 Neg{T <: Length}(x::T) = T(-x.value)
 Div{u}(a::Length{u}, b::Number) = Length(u, a.value / b)
+Div{u}(a::Length{u}, b::Length{u}) = a.value / b.value
 Mul{u}(a::Length{u}, b::Number) = Length(u, a.value * b)
 Max{u}(a::Length{u}, b::Length{u}) = Length(u, max(a.value, b.value))
 Min{u}(a::Length{u}, b::Length{u}) = Length(u, min(a.value, b.value))
