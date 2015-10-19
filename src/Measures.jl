@@ -23,4 +23,17 @@ Base.show(out::IO, x::Div) = print(out,  x.a, " / ", x.b)
 Base.show(out::IO, x::Mul) = print(out,  x.a, " * ", x.b)
 
 
+using Requires
+
+function SIUnits_interop()
+    Base.convert{T}(::Type{SIUnits.SIQuantity{T,1,0,0,0,0,0,0,0,0}}, x::Length{:mm}) =
+        x.value * SIUnits.Milli * SIUnits.Meter
+    Base.convert{T}(::Union(Type{Length}, Type{Measure}), x::SIUnits.SIQuantity{T,1,0,0,0,0,0,0,0,0}) =
+        Length(:mm, x.val / SIUnits.Milli)
+    Base.convert(::Union(Type{Length}, Type{Measure}), x::SIUnits.SIUnit{1,0,0,0,0,0,0,0,0}) =
+        convert(Length, 1*x)
+end
+
+@require SIUnits SIUnits_interop()
+
 end # module Measures
