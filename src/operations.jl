@@ -38,7 +38,7 @@ end
 Neg(x::Neg) = x.a
 iszero(x::Measure) = false
 
-Base.(:+)(a::Measure, b::Measure) = iszero(a) ? b : iszero(b) ? a : Add(a, b)
+Base.(:+)(a::Measure, b::Measure) = Add(a, b)
 Base.(:-)(a::Measure) = Neg(a)
 Base.(:-)(a::Neg) = a.value
 Base.(:-)(a::Measure, b::Measure) = Add(a, -b)
