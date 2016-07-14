@@ -38,14 +38,14 @@ end
 Neg(x::Neg) = x.a
 iszero(x::Measure) = false
 
-Base.(:+)(a::Measure, b::Measure) = Add(a, b)
-Base.(:-)(a::Measure) = Neg(a)
-Base.(:-)(a::Neg) = a.value
-Base.(:-)(a::Measure, b::Measure) = Add(a, -b)
-Base.(:/)(a::Measure, b::Number) = Div(a, b)
-Base.(:/){T <: Measure}(a::T, b::T) = Div(a, b)
-Base.(:*)(a::Measure, b::Number) = Mul(a, b)
-Base.(:*)(a::Number, b::Measure) = Mul(b, a)
+@compat Base.:+(a::Measure, b::Measure) = Add(a, b)
+@compat Base.:-(a::Measure) = Neg(a)
+@compat Base.:-(a::Neg) = a.value
+@compat Base.:-(a::Measure, b::Measure) = Add(a, -b)
+@compat Base.:/(a::Measure, b::Number) = Div(a, b)
+@compat Base.:/{T <: Measure}(a::T, b::T) = Div(a, b)
+@compat Base.:*(a::Measure, b::Number) = Mul(a, b)
+@compat Base.:*(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
 Base.max(a::Measure, b::Measure) = Max(a, b)
 
