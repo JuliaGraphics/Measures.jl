@@ -5,10 +5,10 @@ immutable BoundingBox{P1 <: Vec, P2 <: Vec}
     a::P2
 end
 
-BoundingBox{P <: Vec, T1 <: Measure, T2 <: Measure}(x0::P, width::T1, height::T2) =
+BoundingBox{P <: Vec2, T1 <: Measure, T2 <: Measure}(x0::P, width::T1, height::T2) =
     BoundingBox{P, Tuple{T1, T2}}(x0, (width, height))
 
-BoundingBox{P <: Vec, T1 <: Measure, T2 <: Measure, T3 <: Measure}(x0::P, width::T1, height::T2, depth::T3) =
+BoundingBox{P <: Vec3, T1 <: Measure, T2 <: Measure, T3 <: Measure}(x0::P, width::T1, height::T2, depth::T3) =
     BoundingBox{P, Tuple{T1, T2, T3}}(x0, (width, height, depth))
 
 #BoundingBox{X}(x0::Vec{2, X}, width::Measure, height::Measure) =
