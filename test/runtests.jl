@@ -7,6 +7,13 @@ const rmm = Length(:mm, 1//1)
 const xx = Length(:xx, 1.0)
 
 facts("Bounding boxes") do
+    context("Valid bounding box constructors") do
+        @fact BoundingBox((0mm, 1mm), 1mm, 2mm) -->
+            BoundingBox((0mm, 1mm), 1mm, 2mm)
+        @fact BoundingBox((2mm, 1mm, 3mm), 1mm, 2mm, 4mm) -->
+            BoundingBox((2mm, 1mm, 3mm), 1mm, 2mm, 4mm) 
+    end
+
     context("Invalid bounding box constructors") do
         @fact_throws MethodError BoundingBox((0mm,), 1mm, 2mm)
         @fact_throws MethodError BoundingBox((0mm, 3mm, 8mm), 1mm, 4mm)
