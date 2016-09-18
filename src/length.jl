@@ -18,10 +18,6 @@ Base.hash{u}(x::Length{u}) = hash(x.value, hash(u))
 # Operations
 # ----------
 
-# TODO: figure out if we actually need this:
-# Add{P <: Length, Q<:Length}(x::P, y::Q) = Add{P, Q}(x, y)
-# Add(x::Measure, y::Measure) = Add{Measure, Measure}(x, y)
-
 Neg{T <: Length}(x::T) = T(-x.value)
 Div{u}(a::Length{u}, b::Number) = Length(u, a.value / b)
 Div{u}(a::Length{u}, b::Length{u}) = a.value / b.value
