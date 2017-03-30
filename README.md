@@ -8,6 +8,6 @@ This library generalizes and unifies the notion of measures used in
 [Compose3D](https://github.com/rohitvarkey/Compose3D.jl),
 and [Escher](https://github.com/shashi/Escher.jl).
 
-It allows building up and representing expressions involving differing types of
-units that are then evaluated, resolving them into absolute units.
+It allows you to build up and represent expressions involving different units.
+They are evaluated and resolved into absolute units.
 
