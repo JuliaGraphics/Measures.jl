@@ -1,8 +1,8 @@
 
-abstract MeasureOp{n} <: Measure
-abstract UnaryOp{A} <: MeasureOp{1}
-abstract ScalarOp{A} <: MeasureOp{2}
-abstract BinaryOp{A, B} <: MeasureOp{2}
+@compat abstract type MeasureOp{n} <: Measure end
+@compat abstract type UnaryOp{A} <: MeasureOp{1} end
+@compat abstract type ScalarOp{A} <: MeasureOp{2} end
+@compat abstract type BinaryOp{A, B} <: MeasureOp{2} end
 
 immutable Neg{A <: Measure} <: UnaryOp{A}
     a::A
@@ -48,4 +48,3 @@ iszero(x::Measure) = false
 @compat Base.:*(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)
 Base.max(a::Measure, b::Measure) = Max(a, b)
-
