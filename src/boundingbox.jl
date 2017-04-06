@@ -28,20 +28,20 @@ isabsolute{P1, P2}(b::BoundingBox{P1, P2}) = isabsolute(b.x0) && isabsolute(b.a)
 
 @compat const AbsoluteBox{N} = BoundingBox{NTuple{N, Length{:mm, Float64}},
                                        NTuple{N, Length{:mm, Float64}}}
-@compat const Absolute2DBox =  BoundingBox{Tuple{AbsoluteLength, AbsoluteLength},
+const Absolute2DBox          = BoundingBox{Tuple{AbsoluteLength, AbsoluteLength},
                                        Tuple{AbsoluteLength, AbsoluteLength}}
-@compat const Absolute3DBox =  BoundingBox{
-                                Tuple{
-                                    AbsoluteLength,
-                                    AbsoluteLength,
-                                    AbsoluteLength
-                                },
-                                Tuple{
-                                    AbsoluteLength,
-                                    AbsoluteLength,
-                                    AbsoluteLength
+const Absolute3DBox          = BoundingBox{
+                                    Tuple{
+                                        AbsoluteLength,
+                                        AbsoluteLength,
+                                        AbsoluteLength
+                                    },
+                                    Tuple{
+                                        AbsoluteLength,
+                                        AbsoluteLength,
+                                        AbsoluteLength
+                                    }
                                 }
-                            }
 
 width(x::BoundingBox)  = x.a[1]
 height(x::BoundingBox) = x.a[2]
