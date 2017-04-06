@@ -6,7 +6,7 @@ immutable Length{U, T} <: Measure
 end
 Length{T}(unit::Symbol, x::T) = Length{unit, T}(x)
 
-typealias AbsoluteLength Length{:mm, Float64}
+const AbsoluteLength = Length{:mm, Float64}
 
 Base.convert{u, T1 <: Number, T2 <: Number}(::Type{Length{u, T1}}, x::Length{u, T2}) =
     Length{u, T1}(x.value)

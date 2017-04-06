@@ -6,7 +6,7 @@ export Measure, Length, AbsoluteLength, BoundingBox, AbsoluteBox, Absolute2DBox,
        Absolute3DBox, Vec, Vec2, Vec3, AbsoluteVec, AbsoluteVec2, AbsoluteVec3,
        resolve, mm, cm, inch, pt, width, height
 
-abstract Measure
+@compat abstract type Measure end
 
 include("operations.jl")
 include("length.jl")

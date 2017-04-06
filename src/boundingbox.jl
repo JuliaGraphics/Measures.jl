@@ -26,22 +26,22 @@ BoundingBox(width, height, depth) = BoundingBox(0mm, 0mm, 0mm, width, height, de
 
 isabsolute{P1, P2}(b::BoundingBox{P1, P2}) = isabsolute(b.x0) && isabsolute(b.a)
 
-typealias AbsoluteBox{N}   BoundingBox{NTuple{N, Length{:mm, Float64}},
+@compat const AbsoluteBox{N} = BoundingBox{NTuple{N, Length{:mm, Float64}},
                                        NTuple{N, Length{:mm, Float64}}}
-typealias Absolute2DBox    BoundingBox{Tuple{AbsoluteLength, AbsoluteLength},
+const Absolute2DBox          = BoundingBox{Tuple{AbsoluteLength, AbsoluteLength},
                                        Tuple{AbsoluteLength, AbsoluteLength}}
-typealias Absolute3DBox    BoundingBox{
-                                Tuple{
-                                    AbsoluteLength,
-                                    AbsoluteLength,
-                                    AbsoluteLength
-                                },
-                                Tuple{
-                                    AbsoluteLength,
-                                    AbsoluteLength,
-                                    AbsoluteLength
+const Absolute3DBox          = BoundingBox{
+                                    Tuple{
+                                        AbsoluteLength,
+                                        AbsoluteLength,
+                                        AbsoluteLength
+                                    },
+                                    Tuple{
+                                        AbsoluteLength,
+                                        AbsoluteLength,
+                                        AbsoluteLength
+                                    }
                                 }
-                            }
 
 width(x::BoundingBox)  = x.a[1]
 height(x::BoundingBox) = x.a[2]
