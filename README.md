@@ -1,7 +1,8 @@
 
 # Measures.jl
 
-[![Build Status](https://travis-ci.org/dcjones/Measures.jl.svg?branch=master)](https://travis-ci.org/dcjones/Measures.jl)
+[![Build
+Status](https://travis-ci.org/JuliaGraphics/Measures.jl.svg?branch=master)](https://travis-ci.org/JuliaGraphics/Measures.jl)
 
 This library generalizes and unifies the notion of measures used in
 [Compose](https://github.com/dcjones/Compose.jl),
