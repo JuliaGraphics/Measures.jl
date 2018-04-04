@@ -1,34 +1,34 @@
 
-@compat abstract type MeasureOp{n} <: Measure end
-@compat abstract type UnaryOp{A} <: MeasureOp{1} end
-@compat abstract type ScalarOp{A} <: MeasureOp{2} end
-@compat abstract type BinaryOp{A, B} <: MeasureOp{2} end
+abstract type MeasureOp{n} <: Measure end
+abstract type UnaryOp{A} <: MeasureOp{1} end
+abstract type ScalarOp{A} <: MeasureOp{2} end
+abstract type BinaryOp{A, B} <: MeasureOp{2} end
 
-immutable Neg{A <: Measure} <: UnaryOp{A}
+struct Neg{A <: Measure} <: UnaryOp{A}
     a::A
 end
 
-immutable Add{A <: Measure, B <: Measure} <: BinaryOp{A, B}
-    a::A
-    b::B
-end
-
-immutable Min{A <: Measure, B <: Measure} <: BinaryOp{A, B}
+struct Add{A <: Measure, B <: Measure} <: BinaryOp{A, B}
     a::A
     b::B
 end
 
-immutable Max{A <: Measure, B <: Measure} <: BinaryOp{A, B}
+struct Min{A <: Measure, B <: Measure} <: BinaryOp{A, B}
     a::A
     b::B
 end
 
-immutable Div{A <: Measure} <: ScalarOp{A}
+struct Max{A <: Measure, B <: Measure} <: BinaryOp{A, B}
+    a::A
+    b::B
+end
+
+struct Div{A <: Measure} <: ScalarOp{A}
     a::A
     b::Number
 end
 
-immutable Mul{A <: Measure} <: ScalarOp{A}
+struct Mul{A <: Measure} <: ScalarOp{A}
     a::A
     b::Number
 end
@@ -43,7 +43,7 @@ Base.:-(a::Measure) = Neg(a)
 Base.:-(a::Neg) = a.value
 Base.:-(a::Measure, b::Measure) = Add(a, -b)
 Base.:/(a::Measure, b::Number) = Div(a, b)
-@compat Base.:/{T <: Measure}(a::T, b::T) = Div(a, b)
+Base.:/(a::T, b::T) where T <: Measure = Div(a, b)
 Base.:*(a::Measure, b::Number) = Mul(a, b)
 Base.:*(a::Number, b::Measure) = Mul(b, a)
 Base.min(a::Measure, b::Measure) = Min(a, b)

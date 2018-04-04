@@ -1,37 +1,37 @@
 
 import Base.==
 
-immutable Length{U, T} <: Measure
+struct Length{U, T} <: Measure
     value::T
 end
-Length{T}(unit::Symbol, x::T) = Length{unit, T}(x)
+Length(unit::Symbol, x::T) where T = Length{unit, T}(x)
 
 const AbsoluteLength = Length{:mm, Float64}
 
-Base.convert{u, T1 <: Number, T2 <: Number}(::Type{Length{u, T1}}, x::Length{u, T2}) =
-    Length{u, T1}(x.value)
+Base.convert(::Type{Length{U, T1}}, x::Length{U, T2}) where {U, T1 <: Number, T2 <: Number} =
+    Length{U, T1}(x.value)
 
-=={u}(x::Length{u}, y::Length{u}) = x.value == y.value
-Base.isequal{u}(x::Length{u}, y::Length{u}) = isequal(x.value, y.value)
-Base.hash{u}(x::Length{u}) = hash(x.value, hash(u))
+==(x::Length{U}, y::Length{U}) where U = x.value == y.value
+Base.isequal(x::Length{U}, y::Length{U}) where U = isequal(x.value, y.value)
+Base.hash(x::Length{U}) where U = hash(x.value, hash(U))
 
 # Operations
 # ----------
 
-Neg{T <: Length}(x::T) = T(-x.value)
-Div{u}(a::Length{u}, b::Number) = Length(u, a.value / b)
-Div{u}(a::Length{u}, b::Length{u}) = a.value / b.value
-Mul{u}(a::Length{u}, b::Number) = Length(u, a.value * b)
-Max{u}(a::Length{u}, b::Length{u}) = Length(u, max(a.value, b.value))
-Min{u}(a::Length{u}, b::Length{u}) = Length(u, min(a.value, b.value))
+Neg(x::T) where T <: Length = T(-x.value)
+Div(a::Length{U}, b::Number) where U = Length(U, a.value / b)
+Div(a::Length{U}, b::Length{U}) where U = a.value / b.value
+Mul(a::Length{U}, b::Number) where U = Length(U, a.value * b)
+Max(a::Length{U}, b::Length{U}) where U = Length(U, max(a.value, b.value))
+Min(a::Length{U}, b::Length{U}) where U = Length(U, min(a.value, b.value))
 
-Base.:+{u}(a::Length{u}, b::Length{u}) = Length(u, a.value + b.value)
-Base.:-{u}(a::Length{u}, b::Length{u}) = Length(u, a.value - b.value)
+Base.:+(a::Length{U}, b::Length{U}) where U = Length(U, a.value + b.value)
+Base.:-(a::Length{U}, b::Length{U}) where U = Length(U, a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
 
-Base.abs{T <: Length}(a::T) = T(abs(a.value))
-Base.isless{u}(a::Length{u}, b::Length{u}) = a.value < b.value
+Base.abs(a::T) where {T <: Length} = T(abs(a.value))
+Base.isless(a::Length{U}, b::Length{U}) where U = a.value < b.value
 
 
 # Constants
