@@ -25,8 +25,8 @@ Mul{u}(a::Length{u}, b::Number) = Length(u, a.value * b)
 Max{u}(a::Length{u}, b::Length{u}) = Length(u, max(a.value, b.value))
 Min{u}(a::Length{u}, b::Length{u}) = Length(u, min(a.value, b.value))
 
-@compat Base.:+{u}(a::Length{u}, b::Length{u}) = Length(u, a.value + b.value)
-@compat Base.:-{u}(a::Length{u}, b::Length{u}) = Length(u, a.value - b.value)
+Base.:+{u}(a::Length{u}, b::Length{u}) = Length(u, a.value + b.value)
+Base.:-{u}(a::Length{u}, b::Length{u}) = Length(u, a.value - b.value)
 
 iszero(x::Length) = x.value == 0.0
 

@@ -14,13 +14,13 @@ const AbsoluteVec3 = AbsoluteVec{3}
 
 #Base.zero(::Type{Vec}) = Vec()
 
-@compat Base.:+(a::Vec, b::Vec)  = map(+, a, b)
-@compat Base.:-(a::Vec, b::Vec)  = map(-, a, b)
-@compat Base.:/(a::Vec, b::Number) = map(x -> x/b, a)
-@compat Base.:*(a::Vec, b::Number) = map(x -> x*b, a)
-@compat Base.:*(a::Number, b::Vec) = b*a
+Base.:+(a::Vec, b::Vec)  = map(+, a, b)
+Base.:-(a::Vec, b::Vec)  = map(-, a, b)
+Base.:/(a::Vec, b::Number) = map(x -> x/b, a)
+Base.:*(a::Vec, b::Number) = map(x -> x*b, a)
+Base.:*(a::Number, b::Vec) = b*a
 
 
-@compat @generated function Base.:+{N}(a::Vec{N}, b::Vec{N})
+@generated function Base.:+{N}(a::Vec{N}, b::Vec{N})
     Expr(:tuple, [:(a[$i] + b[$i]) for i=1:N]...)
 end
