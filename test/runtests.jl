@@ -1,4 +1,4 @@
-using Base.Test
+using Compat.Test
 using Measures
 
 const imm = Length(:mm, 1)
@@ -11,7 +11,7 @@ const xx = Length(:xx, 1.0)
         @test BoundingBox((0mm, 1mm), 1mm, 2mm) ===
             BoundingBox((0mm, 1mm), 1mm, 2mm)
         @test BoundingBox((2mm, 1mm, 3mm), 1mm, 2mm, 4mm) ===
-            BoundingBox((2mm, 1mm, 3mm), 1mm, 2mm, 4mm) 
+            BoundingBox((2mm, 1mm, 3mm), 1mm, 2mm, 4mm)
     end
 
     @testset "Invalid bounding box constructors" begin
@@ -34,9 +34,9 @@ end
 end
 
 function check_binop(∘) #\circ
-    @test (1imm ∘ 2imm).value === 1 ∘ 2 
-    @test (1mm ∘ 2imm).value === 1.0 ∘ 2 
-    @test (2mm ∘ 1imm).value === 2.0 ∘ 1 
+    @test (1imm ∘ 2imm).value === 1 ∘ 2
+    @test (1mm ∘ 2imm).value === 1.0 ∘ 2
+    @test (2mm ∘ 1imm).value === 2.0 ∘ 1
     @test (typeof(2mm ∘ 3xx) <: Length) === false
     @test typeof(2mm ∘ 3xx) <: Measures.BinaryOp
 end
