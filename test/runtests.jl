@@ -1,4 +1,4 @@
-using Compat.Test
+using Test
 using Measures
 
 const imm = Length(:mm, 1)
@@ -80,5 +80,9 @@ end
     end
     @testset "min" begin
         check_binop(max)
+    end
+    @testset "broadcasting" begin
+        a = [1mm, 2mm, 3mm]
+        @test all((a .+ 1mm) .== [2mm, 3mm, 4mm])
     end
 end

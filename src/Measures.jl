@@ -1,7 +1,4 @@
-__precompile__()
-
 module Measures
-using Compat
 
 export Measure, Length, AbsoluteLength, BoundingBox, AbsoluteBox, Absolute2DBox,
        Absolute3DBox, Vec, Vec2, Vec3, AbsoluteVec, AbsoluteVec2, AbsoluteVec3,
@@ -24,5 +21,6 @@ Base.show(out::IO, x::Max) = print(out, "max(", x.a, ", ", x.b, ")")
 Base.show(out::IO, x::Div) = print(out,  x.a, " / ", x.b)
 Base.show(out::IO, x::Mul) = print(out,  x.a, " * ", x.b)
 
+Broadcast.broadcastable(x::T) where T<:Measure = Ref(x)
 
 end # module Measures
