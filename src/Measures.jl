@@ -21,5 +21,6 @@ Base.show(out::IO, x::Max) = print(out, "max(", x.a, ", ", x.b, ")")
 Base.show(out::IO, x::Div) = print(out,  x.a, " / ", x.b)
 Base.show(out::IO, x::Mul) = print(out,  x.a, " * ", x.b)
 
+Broadcast.broadcastable(x::T) where T<:Measure = Ref(x)
 
 end # module Measures
