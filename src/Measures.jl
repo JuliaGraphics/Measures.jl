@@ -1,7 +1,4 @@
-__precompile__()
-
 module Measures
-using Compat
 
 export Measure, Length, AbsoluteLength, BoundingBox, AbsoluteBox, Absolute2DBox,
        Absolute3DBox, Vec, Vec2, Vec3, AbsoluteVec, AbsoluteVec2, AbsoluteVec3,
