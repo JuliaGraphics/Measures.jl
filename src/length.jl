@@ -32,6 +32,9 @@ iszero(x::Length) = x.value == 0.0
 
 Base.abs(a::T) where {T <: Length} = T(abs(a.value))
 Base.isless(a::Length{U}, b::Length{U}) where U = a.value < b.value
+Base.oneunit(a::Type{Length{U,T}}) where {U,T} = Length(U, one(T))
+
+isabsolute(::Type{Length{U,T}}) where {U,T} = !in(U, [:w,:h])
 
 
 # Constants
