@@ -1,0 +1,7 @@
+name = "Measures"
+uuid = "442fdcdd-2543-5da2-b0f3-8c86c306513e"
+authors = ["JuliaGraphics contributors"]
+version = "0.3.1"
+
+[compat]
+julia = "1"
