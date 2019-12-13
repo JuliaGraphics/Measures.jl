@@ -85,4 +85,9 @@ end
         a = [1mm, 2mm, 3mm]
         @test all((a .+ 1mm) .== [2mm, 3mm, 4mm])
     end
+
+    @testset "Length methods" begin
+        @test oneunit(Length{:mm, Int}) == 1mm
+        @test !isabsolute(Length{:w, Float32})
+    end
 end
