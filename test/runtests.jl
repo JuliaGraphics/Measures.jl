@@ -91,3 +91,7 @@ end
         @test !isabsolute(Length{:w, Float32})
     end
 end
+
+@testset "range" begin
+    @test collect(range(0mm, 1mm, length=3)) == [0mm, 0.5mm, 1mm]
+end
