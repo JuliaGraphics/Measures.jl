@@ -8,6 +8,9 @@ Length(unit::Symbol, x::T) where T = Length{unit, T}(x)
 
 const AbsoluteLength = Length{:mm, Float64}
 
+Base.zero(x::AbsoluteLength) = AbsoluteLength(0.0)
+Base.convert(::Type{Float64}, x::AbsoluteLength) = x.value
+
 Base.convert(::Type{Length{U, T1}}, x::Length{U, T2}) where {U, T1 <: Number, T2 <: Number} =
     Length{U, T1}(x.value)
 
