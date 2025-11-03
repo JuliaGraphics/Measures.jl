@@ -16,7 +16,7 @@ Base.convert(::Type{Length{U, T1}}, x::Length{U, T2}) where {U, T1 <: Number, T2
 
 ==(x::Length{U}, y::Length{U}) where U = x.value == y.value
 Base.isequal(x::Length{U}, y::Length{U}) where U = isequal(x.value, y.value)
-Base.hash(x::Length{U}) where U = hash(x.value, hash(U))
+Base.hash(x::Length{U}, h::UInt) where U = hash(hash(x.value, hash(U)), h)
 
 # Operations
 # ----------
